@@ -199,10 +199,11 @@ function AuthorityDashboard() {
       </div>
 
       {/* Complaints Table */}
+      {/* Complaints Table */}
       <div className="bg-white shadow rounded-lg p-4">
         {/* Desktop Table */}
         <div className="hidden md:block overflow-x-auto">
-          <table className="w-full text-sm text-left min-w-[800px]">
+          <table className="w-full text-sm text-left min-w-[900px]">
             <thead>
               <tr className="border-b text-gray-600">
                 <th className="p-2">Category</th>
@@ -210,6 +211,7 @@ function AuthorityDashboard() {
                 <th className="p-2">Citizen</th>
                 <th className="p-2">Severity</th>
                 <th className="p-2">Urgency</th>
+                <th className="p-2">Attachments</th>
                 <th className="p-2">Status</th>
                 <th className="p-2">Action</th>
               </tr>
@@ -234,6 +236,33 @@ function AuthorityDashboard() {
                       {c.urgency}
                     </span>
                   </td>
+
+                  {/* Attachments */}
+                  <td className="p-2">
+                    {c.photoUrl && (
+                      <a
+                        href={`${import.meta.env.VITE_API_URL}${c.photoUrl}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 underline block"
+                      >
+                        🖼 View Image
+                      </a>
+                    )}
+                    {c.audioUrl && (
+                      <audio
+                        controls
+                        src={`${import.meta.env.VITE_API_URL}${c.audioUrl}`}
+                        className="mt-2"
+                      />
+                    )}
+                    {!c.photoUrl && !c.audioUrl && (
+                      <span className="text-gray-400 text-xs">
+                        No attachment
+                      </span>
+                    )}
+                  </td>
+
                   <td className="p-2">
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -305,6 +334,27 @@ function AuthorityDashboard() {
                   {c.urgency}
                 </span>
               </p>
+
+              {/* Attachments */}
+              <div className="mb-3">
+                {c.photoUrl && (
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}${c.photoUrl}`}
+                    alt="Complaint"
+                    className="w-full max-h-48 object-cover rounded mb-2"
+                  />
+                )}
+                {c.audioUrl && (
+                  <audio
+                    controls
+                    src={`${import.meta.env.VITE_API_URL}${c.audioUrl}`}
+                    className="w-full"
+                  />
+                )}
+                {!c.photoUrl && !c.audioUrl && (
+                  <p className="text-xs text-gray-400">No attachments</p>
+                )}
+              </div>
 
               {/* Actions */}
               <div className="flex gap-2 flex-wrap">
